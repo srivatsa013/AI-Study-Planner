@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - STUDY PLANNER</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #181818;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            gap: 20px;
+        }
+        
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            width: 90%;
+            gap: 30px;
+            padding: 20px;
+            max-width: 1200px;
+            justify-content: space-evenly;
+        }
+
+        .banner {
+            width: 100%;   
+            padding: 0 10px;    
+            box-sizing: border-box; 
+        }
+        
+        .banner img {
+            width: 100%;   
+            height: auto;   
+            max-height: 200px;    
+            border-radius: 12px;  
+            object-fit: cover;    
+        }
+        
+        nav {
+            width: 100%;
+            background-color: #212B26;
+            padding: 20px 0;
+        }
+        
+        .nav-logo {
+            height: 40px; 
+            width: auto;   
+            margin-right: 20px;
+        }
+        
+        nav ul {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            padding: 0;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        nav ul li {
+            display: inline;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            background-color: #82c885;
+            border-radius: 5px;
+        }
+        
+        /* Auth button styling */
+        .auth-button {
+            background-color: #478465;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .auth-button:hover {
+            background-color: #82c885;
+        }
+        
+        /* Google button */
+        .google-btn {
+            background-color: white;
+            color: #757575;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+        }
+        
+        .google-btn:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .google-icon {
+            width: 18px;
+            height: 18px;
+        }
+        
+        /* User info display */
+        .user-info {
+            display: none;
+            color: white;
+            margin-left: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .user-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        /* About Us Page Specific Styles */
+        .about-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            color: white;
+        }
+        
+        .page-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #82c885;
+        }
+        
+        .team-members {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 40px;
+        }
+        
+        .team-member {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 300px;
+            transition: transform 0.3s ease;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+        
+        .profile-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #478465;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .team-member:hover .profile-photo {
+            border-color: #82c885;
+            transform: scale(1.05);
+        }
+        
+        .member-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #82c885;
+        }
+        
+        .member-title {
+            font-size: 1rem;
+            color: #aaa;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .member-bio {
+            text-align: center;
+            line-height: 1.6;
+            color: #ddd;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #478465;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: #82c885;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><img src="logoweb.png" alt="logo" class="nav-logo"></li>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="about-us.html">About Us</a></li>
+            <li><a href="calendar.html">Calendar</a></li>
+            
+            <li><a href="update-timetable.html">Update Timetable</a></li>
+            <li><button id="authButton" class="auth-button">
+                <svg class="google-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="18px" height="18px">
+                    <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/>
+                    <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/>
+                    <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/>
+                    <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/>
+                </svg>
+                Sign in with Google
+            </button></li>
+            <li><span id="userInfo" class="user-info"></span></li>
+        </ul>
+    </nav>
+    
+    <div class="row">
+        <div class="banner">
+            <img src="banner.png" alt="Banner Image">
+        </div>
+    </div>
+    
+    <div class="about-container">
+        <h1 class="page-title">Meet Our Team</h1>
+        
+        <div class="team-members">
+            <div class="team-member">
+                <div class="profile-photo">
+                    <img src="varun-photo.png" alt="Team Member 1" width="200" height="200">
+                </div>
+                <h2 class="member-name">Varun Karamchandani</h2>
+                <p class="member-title">23BCE0523</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/varun-kumar-karamchandani-71a840301/" class="social-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                            <rect x="2" y="9" width="4" height="12"></rect>
+                            <circle cx="4" cy="4" r="2"></circle>
+                        </svg>
+                    </a>
+                    <a href="https://www.instagram.com/selester11?igsh=aHlldWtzOThqZXkx" class="social-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="team-member">
+                <div class="profile-photo">
+                    <img src="cavin-photo.jpeg" alt="Team Member 2" width="200" height="200">
+                </div>
+                <h2 class="member-name">Cavin Allwyn Monis</h2>
+                <p class="member-title">23BCE0529</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/cavin-monis-04a012288/" class="social-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                            <rect x="2" y="9" width="4" height="12"></rect>
+                            <circle cx="4" cy="4" r="2"></circle>
+                        </svg>
+                    </a>
+                    <a href="https://www.instagram.com/cavin.monis?igsh=MWlza2gyeDlwdGRmcw==" class="social-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="team-member">
+                <div class="profile-photo">
+                    <img src="vatsa-photo.png" alt="Team Member 3" width="200" height="200">
+                </div>
+                <h2 class="member-name">Srivatsa Singaraju</h2>
+                <p class="member-title">23BAI0082</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/srivatsa-singaraju-aa19a928a/" class="social-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                            <rect x="2" y="9" width="4" height="12"></rect>
+                            <circle cx="4" cy="4" r="2"></circle>
+                        </svg>
+                    </a>
+                    <a href="https://www.instagram.com/mirrorball_013?igsh=eG13MGZkM2U1bjR5&utm_source=qr" class="social-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Firebase SDK scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDwGhdiBGYTt_A1mAiU3SmhYUWWQ8zstEI",
+            authDomain: "ai-study-planner-fb573.firebaseapp.com",
+            projectId: "ai-study-planner-fb573",
+            storageBucket: "ai-study-planner-fb573.firebasestorage.app",
+            messagingSenderId: "781374194497",
+            appId: "1:781374194497:web:806f1467fe62dd22f717c0",
+            measurementId: "G-TEJLLDCK9F"
+        };        
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        
+        // Get elements
+        const authButton = document.getElementById('authButton');
+        const userInfo = document.getElementById('userInfo');
+        
+        // Configure Google auth provider
+        const googleProvider = new firebase.auth.GoogleAuthProvider();
+        googleProvider.setCustomParameters({
+            prompt: 'select_account' // Force account selection even if user is already signed in
+        });
+        
+        // Auth state listener
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                // User is signed in
+                authButton.style.display = 'none'; // Hide the sign-in button
+                userInfo.style.display = 'flex'; // Show user info
+                
+                // Add user info with profile picture if available
+                const photoURL = user.photoURL || 'default-avatar.png';
+                userInfo.innerHTML = `
+                    <img src="${photoURL}" alt="Profile" class="user-avatar">
+                    <span>Hi, ${user.displayName || user.email.split('@')[0]}</span>
+                    <button id="signOutButton" class="auth-button" style="margin-left: 10px; padding: 5px 10px; font-size: 0.9rem;">Sign Out</button>
+                `;
+                
+                // Add sign out functionality
+                document.getElementById('signOutButton').addEventListener('click', function() {
+                    firebase.auth().signOut().then(function() {
+                        console.log('Signed out successfully');
+                    }).catch(function(error) {
+                        console.error('Sign out error:', error);
+                    });
+                });
+            } else {
+                // User is signed out
+                authButton.style.display = 'flex'; // Show the sign-in button
+                userInfo.style.display = 'none'; // Hide user info
+            }
+        });
+        
+        // Google sign-in functionality
+        authButton.addEventListener('click', function() {
+            firebase.auth()
+                .signInWithPopup(googleProvider)
+                .then((result) => {
+                    // User successfully signed in
+                    console.log('User signed in:', result.user.email);
+                })
+                .catch((error) => {
+                    console.error('Google sign in error:', error);
+                    alert('Sign in error: ' + error.message);
+                });
+        });
+    </script>
+</body>
+</html>

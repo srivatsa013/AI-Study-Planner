@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STUDY PLANNER</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #181818;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            gap: 20px;
+        }
+
+        
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            width: 90%;
+            gap: 30px;
+            padding: 20px;
+            max-width: 1200px;
+            justify-content: space-evenly; /* Center the columns */
+        }
+
+        .column {
+            flex: 1 1 22%;
+            gap: 10px;
+        }
+
+        .column div{
+            margin-top: 10px;
+            vertical-align: middle;
+        }
+
+        .box {
+            background-color: #ffffff;
+            
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .box:hover {
+            transform: translateY(-5px);
+        }
+
+        .box.large {
+            height: 61vh;
+            background-color: #212B26;
+            color: #ffffff;
+        }
+
+        .box.small {
+            height: 30vh;
+            background-color: #212B26;
+        }
+        .box.small.clook {
+            color: #478465;
+        }
+        .box.extra-large {
+            height: 93vh;
+            background-color: #212B26;
+            color: #ffffff;
+        }
+
+        /* Typography */
+        .box h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #333;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+        }
+
+        .box p, .box ul, .box ol {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #ffffff;
+        }
+
+        .box ul, .box ol {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        /* Form Elements */
+        .box input[type="text"], .box textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            resize: vertical;
+        }
+
+        .box button {
+            background-color: #82c885;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .box button:hover {
+            background-color: #82c885;
+        }
+
+        /* Tables */
+        .box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .box th, .box td {
+            border: 1px solid #eee;
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+        .box th {
+            background-color: #f9f9f9;
+        }
+
+        /* Music Player */
+        .music-player audio {
+            width: 100%;
+        }
+
+        /* Links */
+        .box a {
+            color: #82c885;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .box a:hover {
+            color: #82c885;
+            text-decoration: underline;
+        }
+
+        /* Clock and Date Styles */
+        .clock {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .date {
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .schedule {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .schedule.checks {
+            color: #ffffff;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        .section-title.days {
+            color: #478465;
+        }
+
+        .todo-list {
+            font-size: 14px;
+            text-align: left;
+        }
+
+        .day-schedule {
+            font-size: 14px;
+            line-height: 1.5;
+            text-align: left;
+            margin-top: 10px;
+        }
+
+        .weather {
+            font-size: 14px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .study-tips {
+            font-size: 14px;
+            text-align: left;
+            margin-top: 10px;
+        }
+
+        .resource-links {
+            font-size: 14px;
+            text-align: left;
+            margin-top: 10px;
+        }
+
+        .resource-links a {
+            color: #82c885;
+            text-decoration: underline;
+        }
+        .digit {
+            position: relative;
+            background-color: #333;
+            color: #fff;
+            font-size: 80px;
+            font-weight: bold;
+            width: 140px;
+            height: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .digit::before,
+        .digit::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            background: #222;
+            z-index: 1;
+        }
+
+        .digit::before {
+            top: 0;
+            border-bottom: 2px solid #111;
+        }
+
+        .digit::after {
+            bottom: 0;
+            border-top: 2px solid #111;
+        }
+
+        .label {
+            font-size: 16px;
+            text-transform: uppercase;
+        }
+        
+        .banner {
+            width: 100%;   
+            padding: 0 10px;    
+            box-sizing: border-box; 
+        }
+        .banner img {
+            width: 100%;   
+            height: auto;   
+            max-height: 200px;    
+            border-radius: 12px;  
+            object-fit: cover;    
+        }
+        nav {
+            width: 100%;
+            background-color: #212B26;
+            padding: 20px 0;
+        }
+        .nav-logo {
+            height: 40px; 
+            width: auto;   
+            margin-right: 20px;
+        }
+        nav ul {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            padding: 0;
+            gap: 20px;
+            justify-content: center;  /* Ensure items are centered */
+        }
+        nav ul li {
+            display: inline;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        nav ul li a:hover {
+            background-color: #82c885;
+            border-radius: 5px;
+        }
+        /* Logo styling to give space between navbar items */
+        nav ul li img {
+            margin-right: 20px;
+        }
+        
+        /* Auth button styling */
+        .auth-button {
+            background-color: #478465;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .auth-button:hover {
+            background-color: #82c885;
+        }
+        
+        /* Google button */
+        .google-btn {
+            background-color: white;
+            color: #757575;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+        }
+        
+        .google-btn:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .google-icon {
+            width: 18px;
+            height: 18px;
+        }
+        
+        /* User info display */
+        .user-info {
+            display: none;
+            color: white;
+            margin-left: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .user-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <ul>
+            <li><img src="logoweb.png" alt="logo" class="nav-logo"></li>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="about-us.html">About Us</a></li>
+            <li><a href="calendar.html">Calendar</a></li>
+            <li><a href="update-timetable.html">Update Timetable</a></li>
+            <li><button id="authButton" class="auth-button">
+                <svg class="google-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="18px" height="18px">
+                    <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/>
+                    <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/>
+                    <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/>
+                    <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/>
+                </svg>
+                Sign in with Google
+            </button></li>
+            <li><span id="userInfo" class="user-info"></span></li>
+        </ul>
+    </nav>
+
+    <div class="row">
+        <div class="banner">
+            <img src="banner.png" alt="Banner Image">
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="column">
+            <div class="box small clook" id="clock-box">
+                <div class="clock" id="clock">00:00</div>
+                <div class="date" id="date">January 1, 2000</div>
+            </div>
+            <div class="box large" id="daily-schedule">
+                <div class="section-title days">Daily Schedule</div>
+                <div class="schedule">
+                    7:30 AM - Science 📚<br>
+                    9:55 AM - Math 🔢<br>
+                    11:00 AM - Break ☕<br>
+                    11:55 AM - Social 🌍<br>
+                    12:50 PM - Music 🎵<br>
+                    2:00 PM - Art 🎨<br>
+                    3:15 PM - Sports ⚽
+                </div>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="box small">
+                <div class="section-title days">MONDAY</div>
+                <div class="schedule checks">
+                    <label>
+                        <input type="checkbox" name="subject" value="math">
+                        7:30 - Science
+                    </label>
+                    <br>
+                    <label>
+                        <input type="checkbox" name="subject" value="science">
+                        9:55 - Math
+                    </label>
+                    <br>
+                    <label>
+                        <input type="checkbox" name="subject" value="history">
+                        11:00 - Break
+                    </label>
+                    <br>
+                    <label>
+                        <input type="checkbox" name="subject" value="science">
+                        11:55 - Social
+                    </label>
+                    <br>
+                    <label>
+                        <input type="checkbox" name="subject" value="science">
+                        12:20 - Music
+                    </label>
+                    <br>
+                </div>    
+            </div>
+            <div class="box small">
+                <div class="section-title days">WEDNESDAY</div>
+                <div class="schedule checks">
+                    <label>
+                        <input type="checkbox" name="subject" value="math">
+                        7:30 - Science
+                    </label>
+                    <br>
+                    <label>
+                        <input type="checkbox" name="subject" value="science">
+                        9:55 - Math
+                    </label>
+                    <br>
+                    <label>
+                        <input type="checkbox" name="subject" value="history">
+                        11:00 - Break
+                    </label>
+                    <br>
+                    <label>
+                        <input type="checkbox" name="subject" value="science">
+                        11:55 - Social
+                    </label>
+                    <br>
+                    <label>
+                        <input type="checkbox" name="subject" value="science">
+                        12:20 - Music
+                    </label>
+                    <br>
+                </div>    
+            </div>
+            <div class="box small">
+                <div class="section-title days">FRIDAY</div>
+                <div class="schedule checks">
+                    <label>
+                        <input type="checkbox" name="subject" value="math">
+                        7:30 - Science
+                    </label>
+                    <br>
+                    <label>
+                        <input type="checkbox" name="subject" value="science">
+                        9:55 - Math
+                    </label>
+                    <br>
+                    <label>
+                        <input type="checkbox" name="subject" value="history">
+                        11:00 - Break
+                    </label>
+                    <br>
+                    <label>
+                        <input type="checkbox" name="subject" value="science">
+                        11:55 - Social
+                    </label>
+                    <br>
+                    <label>
+                        <input type="checkbox" name="subject" value="science">
+                        12:20 - Music
+                    </label>
+                    <br>
+                </div>    
+            </div>
+        </div>
+
+
+        <div class="column">
+            <div class="box small">
+                <div class="section-title days">TUESDAY</div>
+                <div class="schedule checks">
+                    <label>
+                        <input type="checkbox" name="subject" value="math">
+                        7:30 - Science
+                    </label>
+                    <br>
+                    <label>
+                        <input type="checkbox" name="subject" value="science">
+                        9:55 - Math
+                    </label>
+                    <br>
+                    <label>
+                        <input type="checkbox" name="subject" value="history">
+                        11:00 - Break
+                    </label>
+                    <br>
+                    <label>
+                        <input type="checkbox" name="subject" value="science">
+                        11:55 - Social
+                    </label>
+                    <br>
+                    <label>
+                        <input type="checkbox" name="subject" value="science">
+                        12:20 - Music
+                    </label>
+                    <br>
+                </div>    
+            </div>
+            <div class="box small">
+                <div class="section-title days">THURSDAY</div>
+                <div class="schedule checks">
+                    <label>
+                        <input type="checkbox" name="subject" value="math">
+                        7:30 - Science
+                    </label>
+                    <br>
+                    <label>
+                        <input type="checkbox" name="subject" value="science">
+                        9:55 - Math
+                    </label>
+                    <br>
+                    <label>
+                        <input type="checkbox" name="subject" value="history">
+                        11:00 - Break
+                    </label>
+                    <br>
+                    <label>
+                        <input type="checkbox" name="subject" value="science">
+                        11:55 - Social
+                    </label>
+                    <br>
+                    <label>
+                        <input type="checkbox" name="subject" value="science">
+                        12:20 - Music
+                    </label>
+                    <br>
+                </div>    
+            </div>
+                 
+        </div>
+        <div class="column">
+            <div class="box extra-large" id="ai-suggestions">
+                <div class="section-title days">Spotify</div> <br>
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/7d4fKmCeimNawtkXZYKS9w?utm_source=generator&theme=0" width="100%" height="600" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rest of existing HTML content remains unchanged -->
+    
+    <!-- Firebase SDK scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    
+    <script>
+        // Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+        apiKey: "AIzaSyDwGhdiBGYTt_A1mAiU3SmhYUWWQ8zstEI",
+        authDomain: "ai-study-planner-fb573.firebaseapp.com",
+        projectId: "ai-study-planner-fb573",
+        storageBucket: "ai-study-planner-fb573.firebasestorage.app",
+        messagingSenderId: "781374194497",
+        appId: "1:781374194497:web:806f1467fe62dd22f717c0",
+        measurementId: "G-TEJLLDCK9F"
+        };        
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        
+        // Get elements
+        const authButton = document.getElementById('authButton');
+        const userInfo = document.getElementById('userInfo');
+        
+        // Configure Google auth provider
+        const googleProvider = new firebase.auth.GoogleAuthProvider();
+        googleProvider.setCustomParameters({
+            prompt: 'select_account' // Force account selection even if user is already signed in
+        });
+        
+        // Auth state listener
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                // User is signed in
+                authButton.style.display = 'none'; // Hide the sign-in button
+                userInfo.style.display = 'flex'; // Show user info
+                
+                // Add user info with profile picture if available
+                const photoURL = user.photoURL || 'default-avatar.png';
+                userInfo.innerHTML = `
+                    <img src="${photoURL}" alt="Profile" class="user-avatar">
+                    <span>Hi, ${user.displayName || user.email.split('@')[0]}</span>
+                    <button id="signOutButton" class="auth-button" style="margin-left: 10px; padding: 5px 10px; font-size: 0.9rem;">Sign Out</button>
+                `;
+                
+                // Add sign out functionality
+                document.getElementById('signOutButton').addEventListener('click', function() {
+                    firebase.auth().signOut().then(function() {
+                        console.log('Signed out successfully');
+                    }).catch(function(error) {
+                        console.error('Sign out error:', error);
+                    });
+                });
+            } else {
+                // User is signed out
+                authButton.style.display = 'flex'; // Show the sign-in button
+                userInfo.style.display = 'none'; // Hide user info
+            }
+        });
+        
+        // Google sign-in functionality
+        authButton.addEventListener('click', function() {
+            firebase.auth()
+                .signInWithPopup(googleProvider)
+                .then((result) => {
+                    // User successfully signed in
+                    console.log('User signed in:', result.user.email);
+                })
+                .catch((error) => {
+                    console.error('Google sign in error:', error);
+                    alert('Sign in error: ' + error.message);
+                });
+        });
+        
+        // Your existing clock function
+        function updateClockAndDate() {
+            var now = new Date();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
+            var ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+            var timeString = hours + ':' + minutes + ':' + seconds + ' ' + ampm;
+            document.getElementById('clock').innerHTML = timeString;
+
+            var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            var dateString = now.toLocaleDateString('en-US', options);
+            document.getElementById('date').innerHTML = dateString;
+        }
+        setInterval(updateClockAndDate, 1000);
+        updateClockAndDate();
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let timetable = getTimetableData();
+            timetable.forEach(item => {
+                updateDayBox(item.day, item.time, item.subject);
+            });
+        });
+        
+        function updateDayBox(day, time, subject) {
+            let dayBox = document.getElementById(`${day.toLowerCase()}-content`);
+            if (dayBox) {
+                dayBox.textContent = `Time: ${time} - Subject: ${subject}`;
+            }
+        }
+    </script>
+    <!-- Keep your other existing scripts -->
+</body>
+</html>
