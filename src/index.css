@@ -14,9 +14,8 @@ body {
 /* Apply flex layout to the root React div */
 #root {
 width: 100%;
-display: flex;
-flex-direction: column;
-align-items: center;
+display: block;
+
 gap: 20px; /* Gap between direct children of root (like Nav and Page Content) */
 }
 
@@ -29,6 +28,10 @@ gap: 20px; /* Gap between direct children of root (like Nav and Page Content) */
   padding: 20px 0; /* Adjusted padding */
   max-width: 1200px;
   justify-content: space-evenly;
+  margin-left: auto; /* Add */
+  margin-right: auto; /* Add */
+  margin-top: 20px; /* Add gap previously provided by #root flex */
+  margin-bottom: 20px; /* Add gap previously provided by #root flex */
 }
 
 /* --- Shared Navigation Styles --- */

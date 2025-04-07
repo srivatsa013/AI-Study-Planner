@@ -99,6 +99,7 @@
 .socialIcon svg { /* Ensure SVG scales if needed */
    width: 16px;
    height: 16px;
+   
 }
 
 .socialIcon:hover {
