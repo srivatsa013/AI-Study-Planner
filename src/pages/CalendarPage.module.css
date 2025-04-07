@@ -1,0 +1,152 @@
+/* src/pages/CalendarPage.module.css */
+
+.calendarContainer {
+    width: 90%;
+    max-width: 600px; /* Slightly wider for day headers */
+    background: #212b26;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+}
+
+.header { /* Specific header style for calendar */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px; /* Increased margin */
+    color: #ffffff;
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 columns for days */
+    gap: 5px;
+    width: 100%;
+}
+
+.dayHeader { /* Style for Sun, Mon, etc. */
+    text-align: center;
+    font-weight: bold;
+    padding-bottom: 8px;
+    color: #aaa;
+    font-size: 0.9em;
+}
+
+.day {
+    border: 1px solid #444; /* Darker border */
+    padding: 8px; /* Adjust padding */
+    min-height: 70px; /* Adjust height */
+    cursor: pointer;
+    position: relative;
+    background: #fff;
+    color: #333; /* Day number color */
+    border-radius: 5px;
+    transition: background 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align day number top-left */
+}
+
+.day span { /* Style the day number */
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+
+.day.blank {
+    background: #e9ecef; /* Lighter grey for blank days */
+    cursor: default;
+    border-color: #dee2e6;
+}
+
+.day:not(.blank):hover {
+    background: #e3f2fd;
+}
+
+.reminder {
+    background-color: #82c885;
+    color: white;
+    font-size: 10px;
+    padding: 2px 4px;
+    border-radius: 3px;
+    margin-top: auto; /* Push reminder to the bottom */
+    align-self: stretch; /* Make it fill width */
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Modal styles */
+.reminderModal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    color: #333;
+    padding: 25px;
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.4);
+    border-radius: 8px;
+    z-index: 1000;
+    min-width: 320px;
+    display: flex; /* Use flex for layout */
+    flex-direction: column;
+    gap: 15px; /* Space between elements */
+}
+
+.reminderModal h3 {
+    margin: 0 0 10px 0; /* Adjust heading margin */
+    text-align: center;
+}
+
+.reminderModal input[type="text"] {
+    width: 100%; /* Full width */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.modalActions { /* Container for buttons */
+    display: flex;
+    justify-content: flex-end; /* Align buttons to the right */
+    gap: 10px;
+}
+
+
+/* Button Styles specific to Calendar Page */
+.btn {
+    padding: 8px 15px; /* Adjusted padding */
+    margin: 0; /* Remove default margin */
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+}
+
+.btnPrev, .btnNext {
+    background: #82c885;
+    color: white;
+}
+.btnPrev:hover, .btnNext:hover {
+    background: #6abf6d;
+}
+
+.btnClose {
+    background: #dc3545; /* Red */
+    color: white;
+}
+.btnClose:hover {
+    background: #c82333;
+}
+
+.btnSave {
+    background: #28a745; /* Green */
+    color: white;
+}
+.btnSave:hover {
+    background: #218838;
+}

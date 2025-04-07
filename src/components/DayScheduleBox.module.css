@@ -1,0 +1,34 @@
+/* src/components/DayScheduleBox.module.css - Styles for the content INSIDE a day box */
+
+.sectionTitle {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.days { /* Modifier for the day title (e.g., MONDAY) */
+    color: #478465;
+}
+
+.schedule { /* Container for the list */
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: left;
+    margin-top: 10px;
+    overflow-y: auto; /* Allow scrolling if content exceeds box height */
+    max-height: calc(100% - 40px); /* Adjust based on title height etc. */
+}
+
+.checks label { /* Style the label containing checkbox and text */
+    display: block; /* Ensure each label is on a new line */
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.checks input[type="checkbox"] {
+    margin-right: 8px;
+    vertical-align: middle; /* Align checkbox with text */
+}
+
+/* Add any other styles needed specifically for items within the DayScheduleBox */

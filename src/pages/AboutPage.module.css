@@ -1,0 +1,106 @@
+/* src/pages/AboutPage.module.css */
+
+.aboutContainer {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px; /* Add padding if needed */
+}
+
+.pageTitle {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: #82c885;
+}
+
+.teamMembers {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 40px;
+}
+
+.teamMember {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    transition: transform 0.3s ease;
+    padding: 15px; /* Add some padding */
+}
+
+.teamMember:hover {
+    transform: translateY(-10px);
+}
+
+.profilePhotoContainer { /* Changed name for clarity */
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 5px solid #478465;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    overflow: hidden; /* Important for the image inside */
+    transition: all 0.3s ease;
+}
+
+.profilePhoto { /* Style the image itself */
+    display: block; /* Remove extra space below image */
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure image covers the area */
+}
+
+
+.teamMember:hover .profilePhotoContainer { /* Target container on hover */
+   border-color: #82c885;
+   transform: scale(1.05);
+}
+
+.memberName {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #82c885;
+    text-align: center;
+}
+
+.memberTitle {
+    font-size: 1rem;
+    color: #aaa;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.memberBio { /* Add this class if you plan to add bios */
+    text-align: center;
+    line-height: 1.6;
+    color: #ddd;
+}
+
+.socialLinks {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.socialIcon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #478465;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.socialIcon svg { /* Ensure SVG scales if needed */
+   width: 16px;
+   height: 16px;
+}
+
+.socialIcon:hover {
+    background-color: #82c885;
+}

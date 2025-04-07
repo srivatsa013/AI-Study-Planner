@@ -1,0 +1,121 @@
+/* src/pages/TimetablePage.module.css */
+
+.container {
+    width: 90%;
+    max-width: 800px;
+    background: #212b26;
+    padding: 25px; /* Increased padding */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+}
+
+.container h2 { /* Style heading within this container */
+    text-align: center;
+    margin-bottom: 20px;
+    color: #eee;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    color: black;
+    border-radius: 5px;
+    overflow: hidden; /* Important */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow */
+}
+
+.table th, .table td {
+    border: 1px solid #dee2e6; /* Lighter border */
+    padding: 12px 15px; /* More padding */
+    text-align: left; /* Align text left for readability */
+}
+
+.table th {
+    background-color: #82c885;
+    color: white;
+    font-size: 1rem; /* Adjusted size */
+    font-weight: 600; /* Bold */
+    text-align: center; /* Center align headers */
+}
+
+.table td {
+    text-align: center; /* Center align data cells */
+}
+
+.table input[type='text'] {
+    width: 95%;
+    border: 1px solid transparent; /* Make border transparent initially */
+    text-align: center;
+    background: transparent;
+    color: black;
+    font-size: 0.95rem;
+    padding: 8px 5px; /* Adjust padding */
+    border-radius: 3px;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+.table input[type='text']:focus {
+    outline: none;
+    border-color: #82c885; /* Highlight border on focus */
+    background-color: #f8f9fa; /* Slight background on focus */
+}
+
+
+.table input[type='text']:read-only {
+    background-color: #f8f9fa; /* Slightly different background */
+    cursor: not-allowed;
+    border-color: #eee; /* Fainter border */
+    color: #6c757d; /* Dim text */
+}
+.table input[type='text']:read-only:focus {
+     background-color: #f8f9fa; /* Keep same background on focus */
+     border-color: #eee;
+}
+
+.actionButton { /* Class for buttons inside the table */
+    background: #dc3545; /* Red color for delete */
+    color: white;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+.actionButton:hover {
+    background: #c82333;
+}
+.actionButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+
+.addButton { /* Class for the main "Add Class" button */
+    margin-top: 20px;
+    padding: 10px 20px; /* Larger padding */
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background: #478465; /* Use a different green */
+    color: white;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+}
+
+.addButton:hover {
+    background-color: #3a6b50;
+}
+.addButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.readOnlyMessage {
+    margin-top: 15px;
+    font-style: italic;
+    color: #aaa;
+    font-size: 0.9em;
+}

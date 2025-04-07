@@ -1,13 +1,126 @@
-body {
+/* src/index.css - Global Styles Only */
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  background-color: #181818;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: white; /* Default text color */
 }
+
+/* Apply flex layout to the root React div */
+#root {
+width: 100%;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 20px; /* Gap between direct children of root (like Nav and Page Content) */
+}
+
+/* --- Shared Row Layout --- */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  width: 90%;
+  gap: 30px; /* Gap between columns inside a row */
+  padding: 20px 0; /* Adjusted padding */
+  max-width: 1200px;
+  justify-content: space-evenly;
+}
+
+/* --- Shared Navigation Styles --- */
+nav {
+  width: 100%;
+  background-color: #212B26;
+  padding: 20px 0;
+}
+nav ul {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  gap: 20px;
+  justify-content: center;
+}
+nav ul li {
+  display: inline;
+}
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+nav ul li a:hover {
+  background-color: #82c885;
+  border-radius: 5px;
+}
+.nav-logo { /* Use this class name directly in Navigation.js */
+  height: 40px;
+  width: auto;
+  margin-right: 20px;
+}
+.auth-button { /* Use this class name directly in Navigation.js */
+  background-color: #478465;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.auth-button:hover {
+  background-color: #82c885;
+}
+.google-icon { /* Use this class name directly in Navigation.js */
+  width: 18px;
+  height: 18px;
+}
+.user-info { /* Use this class name directly in Navigation.js */
+  /* display: none; controlled by React */
+  color: white;
+  margin-left: 10px;
+  display: flex; /* Keep flex for layout when visible */
+  align-items: center;
+  gap: 8px;
+}
+.user-avatar { /* Use this class name directly in Navigation.js */
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* --- Shared Banner Styles --- */
+.banner { /* Use this class name directly where needed */
+  width: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+.banner img {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+/* --- Basic Link Styles --- */
+a { /* Global link style */
+color: #82c885;
+text-decoration: none;
+transition: color 0.3s ease;
+}
+a:hover {
+text-decoration: underline;
+}
+
+/* REMOVE ALL OTHER STYLES (like .box, .column, .container, page-specific things) FROM THIS FILE */

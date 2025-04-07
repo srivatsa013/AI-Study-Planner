@@ -1,0 +1,94 @@
+/* src/pages/HomePage.module.css - Styles specific to HomePage layout and unique elements */
+
+/* Column layout specific to homepage */
+.column {
+    flex: 1 1 22%; /* 4 columns layout aiming for ~25% width each */
+    min-width: 200px; /* Prevent columns from getting too narrow */
+    display: flex; /* Make column a flex container */
+    flex-direction: column; /* Stack items vertically inside column */
+    gap: 25px; /* Increased space between boxes within a column */
+}
+
+/* Base box styling used on the homepage */
+.box {
+    background-color: #212B26;
+    color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    overflow: hidden; /* Prevents content spill, allows internal scrolling if needed */
+    transition: transform 0.3s ease;
+    width: 100%; /* Make box take full width of its column */
+    display: flex; /* Use flex for internal layout */
+    flex-direction: column; /* Default stack content vertically */
+}
+
+.box:hover {
+    transform: translateY(-5px);
+}
+
+/* Size modifiers for boxes on the homepage */
+.large {
+     height: 61vh; /* Use vh units as per original */
+     /* Consider using min-height instead if content might vary */
+}
+.small {
+    height: 30vh;
+    /* Consider using min-height */
+}
+.extraLarge {
+    height: 93vh;
+    /* Consider using min-height */
+}
+
+/* Modifier for the clock box */
+.clook {
+    color: #478465;
+    justify-content: center; /* Center clock vertically */
+    align-items: center; /* Center clock horizontally */
+}
+
+/* Styling for the TITLE inside the static daily schedule box */
+.dailyScheduleTitle {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 15px; /* Increased spacing */
+    color: #478465;
+    flex-shrink: 0; /* Prevent title from shrinking */
+}
+
+/* Styling for the CONTENT inside the static daily schedule box */
+.dailyScheduleContent {
+    font-size: 14px;
+    line-height: 1.7; /* Slightly increased line height */
+    flex-grow: 1; /* Allow content to take remaining space */
+    overflow-y: auto; /* Add scroll if content exceeds box height */
+}
+
+
+/* Styling for the Spotify box container */
+.spotifyBox {
+     /* Uses .box and .extraLarge classes for basic structure and size */
+     /* Flex direction column is default from .box */
+     padding: 20px 20px 10px 20px; /* Adjust padding slightly if needed for frame */
+}
+
+/* Styling for the TITLE inside the Spotify box */
+.spotifyTitle {
+     font-size: 18px;
+     font-weight: bold;
+     text-align: center;
+     margin-bottom: 15px; /* Increased spacing */
+     color: #478465;
+     flex-shrink: 0; /* Prevent title from shrinking */
+}
+
+/* Styling specifically for the iframe wrapper/element */
+.spotifyFrame {
+    flex-grow: 1; /* Allow iframe to fill remaining vertical space */
+    border-radius: 12px; /* Match inline style */
+    border: none; /* Ensure no default border */
+    width: 100%; /* Ensure it takes full width */
+    min-height: 300px; /* Prevent it from becoming too small */
+}
