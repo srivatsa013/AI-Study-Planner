@@ -121,3 +121,41 @@
     color: #aaa;
     font-size: 0.9em;
 }
+
+/* Example styles for new buttons - adjust as needed */
+.editButton, .doneButton {
+    padding: 8px 18px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 0.95rem;
+    transition: background-color 0.2s;
+}
+
+.editButton {
+    background: #17a2b8; /* Example: Teal color for Edit */
+}
+.editButton:hover {
+    background: #138496;
+}
+
+.doneButton {
+    background: #28a745; /* Example: Green color for Done (same as old save btn maybe?) */
+}
+.doneButton:hover {
+    background: #218838;
+}
+
+/* Ensure disabled/readonly states look distinct if needed */
+.table input[type='text']:read-only,
+.table select:disabled {
+    background-color: #f8f9fa; /* Slightly different background */
+    cursor: not-allowed;
+    border-color: #eee; /* Fainter border */
+    color: #6c757d; /* Dim text */
+}
+.table input[type='text']:read-only:focus {
+     background-color: #f8f9fa; /* Keep same background on focus */
+     border-color: #eee;
+}
