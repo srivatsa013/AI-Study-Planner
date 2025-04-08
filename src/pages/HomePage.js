@@ -4,59 +4,9 @@ import Clock from '../components/Clock';
 import DayScheduleBox from '../components/DayScheduleBox';
 import styles from './HomePage.module.css';
 
-// NOTE: Define your actual schedule data here.
-// Replace the example items below with the correct times and subjects for each day
-// as they appear in your original index.html checkboxes.
-// Make sure each item has a unique `id` for the checkbox state management to work correctly.
-const scheduleData = {
-    monday: [
-        // Example: Replace with your actual Monday schedule items
-        { id: 'mon_sci_730', time: '7:30', subject: 'Science' },
-        { id: 'mon_math_955', time: '9:55', subject: 'Math' },
-        { id: 'mon_break_1100', time: '11:00', subject: 'Break' },
-        { id: 'mon_soc_1155', time: '11:55', subject: 'Social' },
-        { id: 'mon_mus_1220', time: '12:20', subject: 'Music' }, // Check if time is 12:20 or 12:50 as in other box
-    ],
-    tuesday: [
-        // Example: Replace with your actual Tuesday schedule items
-        { id: 'tue_sci_730', time: '7:30', subject: 'Science' },
-        { id: 'tue_math_955', time: '9:55', subject: 'Math' },
-        { id: 'tue_break_1100', time: '11:00', subject: 'Break' },
-        { id: 'tue_soc_1155', time: '11:55', subject: 'Social' },
-        { id: 'tue_mus_1220', time: '12:20', subject: 'Music' },
-        // ... add all Tuesday items with unique IDs
-    ],
-    wednesday: [
-        // Example: Replace with your actual Wednesday schedule items
-        { id: 'wed_sci_730', time: '7:30', subject: 'Science' },
-        { id: 'wed_math_955', time: '9:55', subject: 'Math' },
-        { id: 'wed_break_1100', time: '11:00', subject: 'Break' },
-        { id: 'wed_soc_1155', time: '11:55', subject: 'Social' },
-        { id: 'wed_mus_1220', time: '12:20', subject: 'Music' },
-        // ... add all Wednesday items with unique IDs
-    ],
-    thursday: [
-        // Example: Replace with your actual Thursday schedule items
-        { id: 'thu_sci_730', time: '7:30', subject: 'Science' },
-        { id: 'thu_math_955', time: '9:55', subject: 'Math' },
-        { id: 'thu_break_1100', time: '11:00', subject: 'Break' },
-        { id: 'thu_soc_1155', time: '11:55', subject: 'Social' },
-        { id: 'thu_mus_1220', time: '12:20', subject: 'Music' },
-        // ... add all Thursday items with unique IDs
-    ],
-    friday: [
-        // Example: Replace with your actual Friday schedule items
-        { id: 'fri_sci_730', time: '7:30', subject: 'Science' },
-        { id: 'fri_math_955', time: '9:55', subject: 'Math' },
-        { id: 'fri_break_1100', time: '11:00', subject: 'Break' },
-        { id: 'fri_soc_1155', time: '11:55', subject: 'Social' },
-        { id: 'fri_mus_1220', time: '12:20', subject: 'Music' },
-        // ... add all Friday items with unique IDs
-    ],
-};
+// Removed the old static scheduleData
 
-// NOTE: Define the content for the static "Daily Schedule" box here.
-// Replace the example items below with the content from your original index.html 'daily-schedule' div.
+// Keep static daily schedule content if needed
 const dailyScheduleContent = [
     { time: '7:30 AM', subject: 'Science 📚' },
     { time: '9:55 AM', subject: 'Math 🔢' },
@@ -67,25 +17,34 @@ const dailyScheduleContent = [
     { time: '3:15 PM', subject: 'Sports ⚽' },
 ];
 
-// NOTE: Update the Spotify playlist URL if necessary.
-// Replace the `src` attribute value in the iframe below if you want to embed a different playlist or resource.
+// Keep spotify URL
 const spotifyPlaylistUrl = "https://open.spotify.com/embed/playlist/7d4fKmCeimNawtkXZYKS9w?utm_source=generator&theme=0";
 
+// Accept timetable prop
+function HomePage({ timetable = [] }) { // Default to empty array
 
-function HomePage() {
+  // --- Helper function to get schedule items for a specific day ---
+  const getItemsForDay = (dayName) => {
+    // Filter the timetable data passed down from App.js
+    // Ensure case-insensitive comparison
+    return timetable.filter(item => item.day.toLowerCase() === dayName.toLowerCase())
+      // Optional: Sort items by time if time format is consistent (e.g., HH:MM)
+      .sort((a, b) => (a.time || "").localeCompare(b.time || ""));
+  };
+  // --- End Helper ---
+
   return (
     <>
-      {/* Banner Section - Uses global classes */}
+      {/* Banner Section */}
       <div className="row">
         <div className="banner">
-           {/* NOTE: Ensure 'banner.png' exists in the public/images/ folder */}
           <img src="/images/banner.png" alt="Banner Image" />
         </div>
       </div>
 
       {/* Main Content Row */}
       <div className="row">
-        {/* Column 1: Clock and Daily Schedule */}
+        {/* Column 1: Clock and Static Daily Schedule */}
         <div className={styles.column}>
           <div className={`${styles.box} ${styles.small} ${styles.clook}`} >
             <Clock />
@@ -93,7 +52,6 @@ function HomePage() {
           <div className={`${styles.box} ${styles.large} ${styles.dailyScheduleBox}`} >
              <div className={styles.dailyScheduleTitle}>Daily Schedule</div>
              <div className={styles.dailyScheduleContent}>
-                  {/* Render the daily schedule content defined above */}
                   {dailyScheduleContent.map((item, index) => (
                       <React.Fragment key={index}>
                           {item.time} - {item.subject}<br />
@@ -105,41 +63,51 @@ function HomePage() {
 
         {/* Column 2: Mon, Wed, Fri Checkboxes */}
         <div className={styles.column}>
-          {/* Pass the actual schedule data defined above */}
+          {/* Pass filtered schedule data */}
           <DayScheduleBox
             day="monday"
-            scheduleItems={scheduleData.monday}
+            // Get items dynamically using the helper function
+            scheduleItems={getItemsForDay("monday")}
             boxClassName={styles.box}
             smallBoxClassName={styles.small}
           />
           <DayScheduleBox
             day="wednesday"
-            scheduleItems={scheduleData.wednesday}
+            scheduleItems={getItemsForDay("wednesday")}
             boxClassName={styles.box}
             smallBoxClassName={styles.small}
           />
            <DayScheduleBox
              day="friday"
-             scheduleItems={scheduleData.friday}
+             scheduleItems={getItemsForDay("friday")}
              boxClassName={styles.box}
              smallBoxClassName={styles.small}
            />
         </div>
 
-        {/* Column 3: Tue, Thu Checkboxes */}
+        {/* Column 3: Tue, Thu Checkboxes (Add Sat/Sun if needed) */}
          <div className={styles.column}>
            <DayScheduleBox
              day="tuesday"
-             scheduleItems={scheduleData.tuesday}
+             scheduleItems={getItemsForDay("tuesday")}
              boxClassName={styles.box}
              smallBoxClassName={styles.small}
            />
            <DayScheduleBox
              day="thursday"
-             scheduleItems={scheduleData.thursday}
+             scheduleItems={getItemsForDay("thursday")}
              boxClassName={styles.box}
              smallBoxClassName={styles.small}
            />
+           {/* Example: Add Saturday/Sunday if desired */}
+           {/*
+           <DayScheduleBox
+             day="saturday"
+             scheduleItems={getItemsForDay("saturday")}
+             boxClassName={styles.box}
+             smallBoxClassName={styles.small}
+           />
+           */}
          </div>
 
         {/* Column 4: Spotify */}
@@ -149,13 +117,13 @@ function HomePage() {
             <iframe
               className={styles.spotifyFrame}
               style={{ borderRadius: '12px' }}
-              src={spotifyPlaylistUrl} // Use the variable defined above
+              src={spotifyPlaylistUrl}
               width="100%"
               frameBorder="0"
               allowFullScreen=""
               allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
               loading="lazy"
-              title="Spotify Playlist" // Keep or update title
+              title="Spotify Playlist"
             ></iframe>
           </div>
         </div>

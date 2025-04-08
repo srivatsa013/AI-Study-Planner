@@ -34,64 +34,56 @@ const saveCheckboxState = (day, state) => {
     }
 };
 
-function DayScheduleBox({ day, scheduleItems = [], boxClassName, smallBoxClassName }) { // Added default for scheduleItems
-    // Initialize state using the load function
+function DayScheduleBox({ day, scheduleItems = [], boxClassName, smallBoxClassName }) {
     const [checkedItems, setCheckedItems] = useState(() => loadCheckboxState(day));
 
-    // Handle checkbox changes
     const handleCheckboxChange = (event) => {
         const { value, checked } = event.target;
         setCheckedItems(prevState => {
-            const newState = { ...prevState }; // Create a new object for the new state
+            const newState = { ...prevState };
             if (checked) {
-                newState[value] = true; // Set key to true if checked
+                newState[value] = true;
             } else {
-                delete newState[value]; // Remove the key if unchecked
+                delete newState[value];
             }
-            // Save the new state immediately after setting it
-            saveCheckboxState(day, newState);
-            return newState; // Return the updated state
+            saveCheckboxState(day, newState); // Still saves check state locally
+            return newState;
         });
     };
 
-    // Effect to potentially reload state if 'day' prop changes (might not be needed depending on usage)
-    // If DayScheduleBox instances are always mounted with a fixed 'day', this isn't strictly necessary.
     useEffect(() => {
         setCheckedItems(loadCheckboxState(day));
-    }, [day]); // Reload state if the day prop were to change dynamically
+    }, [day]);
 
     return (
-        // Combine base box class with size modifier
         <div className={`${boxClassName} ${smallBoxClassName}`}>
-            {/* Title using styles */}
             <div className={`${styles.sectionTitle} ${styles.days}`}>{day.toUpperCase()}</div>
-            {/* Schedule list container */}
             <div className={`${styles.schedule} ${styles.checks}`}>
-                {/* Ensure scheduleItems is an array before mapping */}
-                {Array.isArray(scheduleItems) && scheduleItems.map((item, index) => {
-                    // Use item.id if available, otherwise generate a key. Ensure item exists.
-                    if (!item) return null; // Skip if item is somehow null/undefined
-                    const itemKey = item.id || `${item.time}-${item.subject}` || `item-${index}`; // Fallback key
-                    return (
-                        <React.Fragment key={itemKey}>
-                            <label>
-                                <input
-                                    type="checkbox"
-                                    name={`subject_${day}_${itemKey}`} // Make name more unique
-                                    value={itemKey} // Use the unique key as the value
-                                    checked={!!checkedItems[itemKey]} // Check if the key exists and is truthy in state
-                                    onChange={handleCheckboxChange}
-                                />
-                                {/* Defensive check for item properties */}
-                                {item.time || 'N/A'} - {item.subject || 'N/A'}
-                            </label>
-                        </React.Fragment>
-                    );
-                 })}
-                 {/* Optional: Message if scheduleItems is empty */}
-                 {(!Array.isArray(scheduleItems) || scheduleItems.length === 0) && (
-                    <p>No schedule items for this day.</p>
-                 )}
+                {/* Ensure items have a reasonably unique key for checkbox state */}
+                {Array.isArray(scheduleItems) && scheduleItems.length > 0 ? (
+                    scheduleItems.map((item, index) => {
+                        // Use item.id if it's guaranteed unique and stable, otherwise fall back
+                        const itemKey = item.id ? `item-${item.id}` : `${day}-${item.time}-${item.subject}-${index}`;
+                        return (
+                            <React.Fragment key={itemKey}>
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name={`subject_${day}_${index}`}
+                                        value={itemKey} // Use the key for state tracking
+                                        checked={!!checkedItems[itemKey]}
+                                        onChange={handleCheckboxChange}
+                                    />
+                                    {/* Use ?? for nullish coalescing */}
+                                    {item.time ?? 'N/A'} - {item.subject ?? 'N/A'}
+                                </label>
+                            </React.Fragment>
+                        );
+                    })
+                ) : (
+                    // Display message if no items for the day
+                    <p style={{ textAlign: 'center', marginTop: '10px', fontSize: '0.9em' }}>No schedule entries.</p>
+                )}
             </div>
         </div>
     );
